@@ -1,6 +1,7 @@
 const virtual_buttons = {
     size : 2,
     points:[ [0,0,10,6] , [20,0,10,6] ],
+    // 0: 通常状態のカラー      1:押されている状態のカラー
     colors:['rgba(100, 100, 100, 0.3)' , 'rgba(255, 100, 0, 0.3)'] ,
     width:30,
     height:20,
