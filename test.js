@@ -4,17 +4,20 @@ const REVERSE = true;
 
 // ビデオのカメラ設定(デバイスのカメラ映像をビデオに表示)
 function initVideoCamera() {
-    const video = document.getElementById('video');
-    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+    const video = document.getElementById('video');    
+    return new Promise( (resolve) => {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
         .then((stream) => {
             video.srcObject = stream;
             video.play();
         })
-        .catch(e => console.log(e));
+        .catch(e => console.log(e))
+        .then( () => resolve() );
+    });
 }
 async function initDetector(){
     const detectorConfig = {
-        modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING,
+        modelType: poseDetection.movenet.modelType.SINGLEPOSE_THUNDER,
         minPoseScore: 0.3,
         trackerType: poseDetection.TrackerType.BoundingBox
     };
@@ -82,8 +85,8 @@ async function main_loop(detector,video){
         const poses = await detector.estimatePoses(video);
         if(poses.length == 1) {
             draw_keypoints(poses[0].keypoints);
-            virtual_buttons.draw(poses[0].keypoints);
         }
+        virtual_buttons.draw(poses);
         // virtual_buttons.draw_grid();
                 
         requestAnimationFrame( () => loop(detector,video) );
@@ -91,7 +94,7 @@ async function main_loop(detector,video){
     loop();
 }
 async function main(){
-    initVideoCamera();
+    await initVideoCamera();
     const detector = await initDetector();
     const video = document.getElementById('video');
 
