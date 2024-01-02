@@ -37,12 +37,15 @@ const virtual_buttons = {
             context.stroke();
         }
     },
-    draw : function (keypoints){
+    draw : function (poses){
         // Canvas要素を取得
         const canvas = document.getElementById('canvas');
         const context = canvas.getContext('2d');
 
         // 点を描画
+        let keypoints;
+        if(poses.length != 0) keypoints = poses[0].keypoints;
+        else keypoints = Array();
         for(let i = 0;i < this.size;i++){
             context.fillStyle = this.colors[0];
             let x   = this.points[i][0] * canvas.width / this.width;
