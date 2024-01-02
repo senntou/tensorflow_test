@@ -1,10 +1,10 @@
 const virtual_buttons = {
-    size : 2,
-    points:[ [0,0,10,6] , [20,0,10,6] ],
+    size : 6,
+    points:[ [0,0,1,1] , [0,3,1,1] , [3,0,1,1] , [3,3,1,1] , [0,1,1,2] , [3,1,1,2]],
     // 0: 通常状態のカラー      1:押されている状態のカラー
     colors:['rgba(100, 100, 100, 0.3)' , 'rgba(255, 100, 0, 0.3)'] ,
-    width:30,
-    height:20,
+    width:4,
+    height:4,
     draw_grid : function() {
         // Canvas要素を取得
         const canvas = document.getElementById('canvas');
